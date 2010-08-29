@@ -1,5 +1,4 @@
 <?php
-exit();
 /**
  * @author Tsanyo Tsanev
  * @copyright 2010 - Tsanyo Tsanev
