@@ -25,12 +25,12 @@ vibe-client.php
    	- CLASS INSTALATION - new vibe_tunnel_cli($tunnel_host, $tunnel_url, $host, $username, $password, $database)
    		* $tunnel_host - the domain name of the remote computer or IP address
    		* $tunnel_url - the "relative" URI of the service (ex. /services/vibe-mysql-tunnel.php)
-   		* $host - the hostname for the mySQL databese on the remote machine (ex. localhost)
+   		* $host - the hostname for the mySQL database on the remote machine (ex. localhost)
    		* $username - the username for the mySQL server
    		* $password - the password
    		* $database - the name of the database to be used
 	- check_connection() - its function sends a query to the server to check if there is connection to it, if the URL is correct, if the username and password for the mySQL are correct and so on. If this method returns true the execution of the program continues.
-	- query($query, $return_type) - this method queue the query you want to send in an internal variable. It accepts two parameters - $query is a string of the mySQL query you want to send. The return type is an optional string parameter that specifies the type of the result returned (for select and show queries) - it can be VIBE-NUM for numeric array, VIBE-ASSOC for an associative array or VIBE-BOTH for both. I decided to specify the result type before the query is executed to avoid receiving data from the server which will never be used. Thus to speed up the process.
+	- query($query, $return_type) - this method queue the query you want to send in an internal variable. It accepts two parameters - $query is a string of the mySQL query you want to send. The return type is an optional string parameter that specifies the type of the result returned (for select and show queries) - it can be VIBE-NUM for numeric array, VIBE-ASSOC for an associative array or VIBE-BOTH for both. I decided to specify the result type before the query is executed to avoid receiving data from the server which will never be used, thus to speed up the process.
 	- exec() - this method executes the queue of queries. It creates the XML file and send it to the server. If all goes OK the method returns true. If an error occurs false is returned and maybe (depending on the error) a message is displayed.
 	- fetch_array($type) - returns the result array for the current query*(1). $type can be a string either 'assoc' or 'numeric'. If array type is not found the available one is returned.
 	- fetch_assoc() - alias to fetch_array('assoc')
@@ -41,8 +41,8 @@ vibe-client.php
 	- get_xml() - returns a string containg the raw XML retuned from the server
 	- get_report() - returns a string containing a detailed report of the operation of the class.
 	- next_transaction() - moves the pointer to the result set for the next query.
-	- count_transactions() - retuns the number of queries executed.
-	- get_transaction_error() - returns a string with the error (if any) that occured on the server while executing the query.
+	- count_transactions() - returns the number of queries executed.
+	- get_transaction_error() - returns a string with the error (if any) that occurred on the server while executing the query.
 	
 	The array returned from the fetch_array has the following structure 
 		array( 
@@ -56,9 +56,9 @@ vibe-client.php
 		);
 	
 Notes:
-	1. The use of this web service can be a hole in the security of your mysql server. It uses a very simple authentication and personally I recommend if you are going to use it to make some changes. The easyest way to hack something is if you know how it works and these sources are public :).
+	1. The use of this web service can be a hole in the security of your mySQL server. It uses a very simple authentication and personally I recommend if you are going to use it to make some changes. The easiest way to hack something is if you know how it works and these sources are public :).
 	2. For security reasons the username and password for the mySQL server are send from the client and only used by the server class.
-	3. I am still working on improving the operation and flexability of these classes.
+	3. I am still working on improving the operation and flexibility of these classes.
 		
 ------------------------------------
-(1) - each operation set with query() has an unique index in the result set. When exec() the class parses the results and sets the pointer to the first query executed, therefore all the methods that return infromation for the query use this query's data. The next_transaction() method moves the pointer to the result of the next query. If there is no next query false is returned.
+(1) - each operation set with query() has an unique index in the result set. When exec() the class parses the results and sets the pointer to the first query executed, therefore all the methods that return information for the query use this query's data. The next_transaction() method moves the pointer to the result of the next query. If there is no next query false is returned.
