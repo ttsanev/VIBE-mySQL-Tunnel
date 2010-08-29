@@ -381,6 +381,7 @@ class vibe_tunnel_cli {
 	}
 	
 	public function count_transactions() {
+		if (!is_array($this->parsedXML)) return false;
 		return count($this->parsedXML);
 	}
 	
